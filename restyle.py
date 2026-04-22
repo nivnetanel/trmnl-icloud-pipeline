@@ -13,6 +13,8 @@ Setup:
 """
 
 from PIL import Image
+import pillow_heif
+pillow_heif.register_heif_opener()
 import requests
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.oauth2.credentials import Credentials
@@ -110,7 +112,10 @@ def download_random_photo(token: str) -> tuple[bytes, str]:
     if not photos:
         raise RuntimeError("Album is empty or inaccessible.")
 
-    photo = random.choice(photos)
+    image_photos = [p for p in photos if "2049" not in p.get("derivatives", {})]
+    if not image_photos:
+        raise RuntimeError("No photos (non-video) found in album.")
+    photo = random.choice(image_photos)
     guid = photo["photoGuid"]
     derivatives = photo.get("derivatives", {})
 
@@ -152,7 +157,7 @@ def restyle_with_gemini(image_bytes: bytes, api_key: str) -> tuple[bytes, str]:
     response = client.models.generate_content(
         model=GEMINI_MODEL,
         contents=[prompt, types.Part.from_bytes(data=jpeg_bytes, mime_type="image/jpeg")],
-        config=types.GenerateContentConfig(response_modalities=["IMAGE", "TEXT"]),
+        config=types.GenerateContentConfig(response_modalities=["IMAGE"]),
     )
     candidate = response.candidates[0] if response.candidates else None
     if candidate is None or candidate.content is None:
