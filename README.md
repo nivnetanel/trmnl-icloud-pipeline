@@ -1,0 +1,1 @@
+[![Daily Restyle](https://github.com/nivnetanel/trmnl-icloud-pipeline/actions/workflows/daily_restyle.yml/badge.svg)](https://github.com/nivnetanel/trmnl-icloud-pipeline/actions/workflows/daily_restyle.yml)

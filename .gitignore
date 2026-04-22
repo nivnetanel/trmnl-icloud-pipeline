@@ -1,0 +1,13 @@
+# secrets & credentials
+.env
+token.json
+client_secret*.json
+
+# runtime cache
+.photos_album_id
+
+# generated output
+output/
+
+# claude
+.claude/

@@ -1,0 +1,40 @@
+name: Daily Restyle
+
+on:
+  schedule:
+    - cron: '0 8 * * *'   # 8:00 AM UTC every day
+  workflow_dispatch:       # also allows manual trigger from GitHub UI
+
+jobs:
+  restyle:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install system deps for HEIC support
+        run: sudo apt-get install -y libheif-dev
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Write credentials from secrets
+        env:
+          GOOGLE_TOKEN: ${{ secrets.GOOGLE_TOKEN }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PHOTOS_ALBUM_ID: ${{ secrets.PHOTOS_ALBUM_ID }}
+        run: |
+          echo "$GOOGLE_TOKEN" > token.json
+          echo "$GOOGLE_CLIENT_SECRET" > client_secret.json
+          echo -n "$PHOTOS_ALBUM_ID" > .photos_album_id
+
+      - name: Run restyle
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ICLOUD_ALBUM_TOKEN: ${{ secrets.ICLOUD_ALBUM_TOKEN }}
+          PHOTOS_SHARE_URL: ${{ secrets.PHOTOS_SHARE_URL }}
+        run: python restyle.py
