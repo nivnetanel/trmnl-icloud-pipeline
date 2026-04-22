@@ -1,1 +1,14 @@
-Please edit the uploaded image to be optimized for a 7.5-inch E-Ink display. First, resize the image to exactly 800x480 pixels (landscape orientation). Convert the image to grayscale and strictly limit the palette to only 4 shades of gray: absolute Black, Dark Gray, Light Gray, and absolute White. Significantly increase the contrast to ensure core details are sharp and clear. The style should be clean, minimalist, and optimized for low-bit depth rendering.
+Please edit the uploaded image to be optimized for a 7.5-inch E-Ink display.
+
+Resize the image to exactly 800x480 pixels (landscape orientation).
+Convert the image to grayscale and strictly limit the palette to only 4 shades: absolute Black, Dark Gray, Light Gray, and absolute White.
+Significantly increase contrast to ensure sharp and clear details suitable for low-bit depth rendering.
+
+Apply a different artistic style each time. The style should be creative and varied, but must remain compatible with a strict 4-shade grayscale palette. Favor styles that rely on strong outlines, clear shapes, and high contrast rather than color or gradients.
+
+Ensure the result feels like a stylized transformation of the original image, not a completely new image.
+
+Requirements:
+- Preserve the main subjects and composition
+- Keep all important details clearly visible on E-Ink
+- Avoid complex textures, noise, or soft gradients
