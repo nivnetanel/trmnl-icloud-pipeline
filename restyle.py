@@ -325,12 +325,12 @@ def main() -> None:
         try:
             result_bytes, ext = restyle_with_gemini(raw_bytes, api_key)
             break
-        except RuntimeError as e:
-            print(f"   {e} — fetching a different photo (attempt {attempt + 1}/5)...")
+        except Exception as e:
+            print(f"   Skipping photo ({e}) — fetching a different one (attempt {attempt + 1}/5)...")
             if attempt == 4:
                 raise
     else:
-        raise RuntimeError("All 5 photos were blocked by Gemini.")
+        raise RuntimeError("All 5 photos failed.")
 
     uid = uuid.uuid4().hex[:8]
     out_path = OUTPUT_DIR / f"restyle_{uid}.{ext}"
