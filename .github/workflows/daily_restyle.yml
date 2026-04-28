@@ -38,3 +38,9 @@ jobs:
           ICLOUD_ALBUM_TOKEN: ${{ secrets.ICLOUD_ALBUM_TOKEN }}
           PHOTOS_SHARE_URL: ${{ secrets.PHOTOS_SHARE_URL }}
         run: python restyle.py
+
+      - name: Persist refreshed token back to secret
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: gh secret set GOOGLE_TOKEN < token.json
